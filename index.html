@@ -1,540 +1,549 @@
-<!DOCTYPE html>
-<html lang="pt" translate="no" class="notranslate">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta name="google" content="notranslate">
-    <meta name="theme-color" content="#000000">
-    <meta name="description" content="Cabo Verde P2P Emergency Mesh – Offline-first, AI translation, island-wide resilience. Terminal-grade P2P mesh.">
-    <title>Resiliente | Cabo Verde P2P Emergency Mesh</title>
-    <link rel="icon" type="image/png" href="logobanner.png">
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html, body { min-height: 100vh; overflow-x: hidden; }
-        .bg-video { position: fixed; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; pointer-events: none; }
-        body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.75); z-index: -1; pointer-events: none; }
-        body::after { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: repeating-linear-gradient(0deg, rgba(0, 68, 0, 0.08) 0px, rgba(0, 68, 0, 0.08) 2px, transparent 2px, transparent 6px); pointer-events: none; z-index: 0; }
-        body { font-family: 'Figtree', 'Share Tech Mono', monospace; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; color: #CCFFCC; position: relative; }
-        .card { max-width: 1300px; width: 100%; background: rgba(0, 0, 0, 0.681); backdrop-filter: blur(2px); border-radius: 28px; padding: 40px 32px; box-shadow: 0 0 0 1px rgba(57, 255, 20, 0.3), 0 25px 45px rgba(0,0,0,0.8), 0 0 15px rgba(57,255,20,0.2); border: 1px solid rgba(57, 255, 20, 0.5); transition: all 0.2s; position: relative; z-index: 2; animation: fadeIn 0.6s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-        .brand-logo { display: flex; justify-content: center; margin-bottom: 12px; }
-        .brand-logo img { width: 90px; height: 90px; filter: drop-shadow(0 0 6px #39FF14); border-radius: 20px; }
-        .brand-name { font-family: 'Share Tech Mono', monospace; font-size: 52px; font-weight: 700; text-align: center; color: #39FF14; text-shadow: 0 0 5px #39FF14, 0 0 12px #004400; letter-spacing: 2px; margin-top: 8px; }
-        h1 { font-size: 28px; font-weight: 600; text-align: center; color: #39FF14; text-shadow: 0 0 3px #39FF14; margin: 8px 0 6px; letter-spacing: 1px; }
-        .tagline { text-align: center; font-family: 'Share Tech Mono', monospace; font-size: 16px; color: #B0FFB0; border-bottom: 1px solid #39FF14; display: inline-block; width: auto; margin: 0 auto 30px; padding-bottom: 8px; letter-spacing: 0.5px; }
-        .lang-switcher { display: flex; justify-content: center; gap: 12px; margin: 10px 0 20px; flex-wrap: wrap; }
-        .lang-btn { background: transparent; border: 1px solid #39FF14; color: #ADFFAD; padding: 8px 18px; border-radius: 40px; font-family: 'Share Tech Mono', monospace; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: 0.2s; }
-        .lang-btn.active { background: #39FF14; color: #000000; box-shadow: 0 0 12px #39FF14; }
-        .lang-btn:hover:not(.active) { background: rgba(57, 255, 20, 0.2); color: #39FF14; }
-        .tab-bar { display: flex; gap: 24px; justify-content: center; margin: 20px 0 32px; border-bottom: 1px solid #004400; padding-bottom: 12px; flex-wrap: wrap; }
-        .tab-btn { background: transparent; border: none; font-family: 'Share Tech Mono', monospace; font-weight: 600; font-size: 1.1rem; padding: 10px 28px; border-radius: 40px; cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center; gap: 10px; color: #ADFFAD; backdrop-filter: blur(2px); }
-        .tab-btn i { font-size: 1.2rem; }
-        .tab-btn.active { background: #39FF14; color: #000000; box-shadow: 0 0 12px #39FF14, 0 0 4px #39FF14; text-shadow: none; }
-        .tab-btn:hover:not(.active) { background: rgba(57, 255, 20, 0.2); color: #39FF14; box-shadow: 0 0 6px #39FF14; }
-        .tab-pane { display: none; animation: fadePane 0.3s ease; }
-        .tab-pane.active-pane { display: block; }
-        @keyframes fadePane { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-        .grid-2col { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 28px; margin: 30px 0; }
-        .info-card, .pricing-box { background: rgba(0, 10, 0, 0.85); border-radius: 24px; padding: 24px; border: 1px solid #004400; box-shadow: 0 8px 20px rgba(0,0,0,0.6), 0 0 0 1px rgba(57,255,20,0.1); transition: 0.2s; display: flex; flex-direction: column; }
-        .info-card:hover, .pricing-box:hover { border-color: #39FF14; box-shadow: 0 0 12px rgba(57,255,20,0.3); }
-        .info-card h3, .pricing-box h3 { font-size: 1.6rem; color: #39FF14; margin-bottom: 18px; display: flex; align-items: center; gap: 12px; text-shadow: 0 0 2px #004400; }
-        .list-styled { list-style: none; padding-left: 0; }
-        .list-styled li { margin: 14px 0; display: flex; gap: 12px; align-items: flex-start; font-size: 0.95rem; color: #CCFFCC; }
-        .list-styled li i { color: #39FF14; margin-top: 3px; min-width: 22px; text-shadow: 0 0 2px #39FF14; }
-        .section-title { font-size: 28px; font-weight: 700; color: #39FF14; margin: 40px 0 20px 0; border-left: 5px solid #39FF14; padding-left: 20px; text-shadow: 0 0 2px #004400; font-family: 'Share Tech Mono', monospace; }
-        .stat-badge { background: rgba(0, 68, 0, 0.4); border: 1px solid #39FF14; padding: 14px 20px; border-radius: 48px; text-align: center; margin: 20px 0; font-weight: 600; font-size: 0.95rem; color: #BFFFBF; backdrop-filter: blur(2px); }
-        .pricing-box { background: linear-gradient(135deg, #021502, #000000); text-align: center; }
-        .pricing-box .price { font-size: 2.5rem; font-weight: 800; color: #39FF14; margin: 10px 0; text-shadow: 0 0 6px #004400; }
-        .highlight-text { background: rgba(0, 68, 0, 0.3); border-left: 4px solid #39FF14; padding: 18px 24px; border-radius: 20px; margin: 24px 0; font-weight: 500; color: #E0FFE0; }
-        .button, .more-info-btn { display: inline-flex; align-items: center; justify-content: center; background: #004400; color: #39FF14; border: 1px solid #39FF14; padding: 12px 32px; border-radius: 40px; text-decoration: none; font-weight: 700; font-size: 1rem; transition: all 0.2s; gap: 12px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.5); font-family: 'Share Tech Mono', monospace; }
-        .button:hover, .more-info-btn:hover { background: #39FF14; color: #000000; box-shadow: 0 0 16px #39FF14; border-color: #39FF14; transform: translateY(-2px); }
-        .more-info-btn { margin-top: 20px; width: 100%; padding: 10px; font-size: 0.9rem; }
-        .footer-note { font-size: 12px; text-align: center; margin-top: 40px; color: #5A9E5A; border-top: 1px solid #004400; padding-top: 24px; }
-        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.96); backdrop-filter: blur(6px); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; visibility: hidden; transition: 0.2s; }
-        .modal-overlay.active { opacity: 1; visibility: visible; }
-        .modal-content { background: #000000; border-radius: 28px; max-width: 700px; width: 100%; max-height: 85vh; overflow-y: auto; border: 2px solid #39FF14; box-shadow: 0 0 25px rgba(57,255,20,0.5); }
-        .modal-header { padding: 20px 26px; background: #021502; border-bottom: 1px solid #39FF14; display: flex; justify-content: space-between; align-items: center; }
-        .modal-header h2 { color: #39FF14; font-size: 24px; display: flex; gap: 12px; font-family: monospace; }
-        .close-modal { background: none; border: none; color: #39FF14; font-size: 36px; cursor: pointer; width: 44px; height: 44px; border-radius: 40px; }
-        .close-modal:hover { background: #39FF14; color: black; }
-        .modal-body { padding: 28px 32px; color: #CCFFCC; }
-        .placeholder-media { width: 100%; max-width: 100%; max-height: 300px; object-fit: contain; border-radius: 20px; margin: 15px 0; border: 1px solid #39FF14; background: #0a1a0a; }
-        .accessibility-widget { position: fixed; bottom: 24px; right: 24px; display: flex; gap: 12px; background: #000000dd; backdrop-filter: blur(8px); padding: 10px 18px; border-radius: 60px; border: 1px solid #39FF14; z-index: 1100; }
-        .accessibility-widget button { background: #001a00; border: 1px solid #39FF14; color: #39FF14; font-size: 20px; width: 48px; height: 48px; border-radius: 48px; cursor: pointer; transition: 0.2s; }
-        .accessibility-widget button:hover, .accessibility-widget button.active { background: #39FF14; color: #000000; box-shadow: 0 0 12px #39FF14; }
-        .pwa-install-banner { background: #004400; color: #39FF14; text-align: center; padding: 12px; border-radius: 60px; margin-top: 30px; font-weight: 600; cursor: pointer; border: 1px solid #39FF14; transition: 0.2s; }
-        .pwa-install-banner:hover { background: #39FF14; color: black; }
-        .mesh-demo { background: rgba(0, 20, 0, 0.7); border-radius: 24px; padding: 24px; text-align: center; margin: 20px 0; border: 1px solid #39FF14; }
-        .mesh-nodes { display: flex; justify-content: center; align-items: center; gap: 18px; flex-wrap: wrap; font-size: 32px; }
-        .mesh-nodes i { color: #39FF14; text-shadow: 0 0 8px #39FF14; background: #001a00; padding: 12px; border-radius: 60px; }
-        body.large-text { font-size: 1.2rem; }
-        body.high-contrast { background: #ffffff; color: #000000; }
-        body.high-contrast .card { background: white; border-color: black; color: black; }
-        body.high-contrast .brand-name, body.high-contrast h1, body.high-contrast .section-title { color: black; text-shadow: none; }
-        body.visible-focus :focus-visible { outline: 3px solid #39FF14 !important; }
-        @media (max-width: 760px) { .card { padding: 24px 18px; } .brand-name { font-size: 36px; } .tab-btn { padding: 5px 14px; font-size: 0.85rem; } }
-    </style>
-</head>
-<body>
+<template>
+  <!-- BACKGROUND IMAGE -->
+  <div
+    v-if="store.overlayOpen"
+    class="fixed inset-0 backdrop-blur-xl z-[10000]"
+    :style="backgroundStyles"
+  ></div>
 
-    <video class="bg-video" autoplay loop muted playsinline>
-        <source src="bg2.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-
-    <div class="card">
-        <div class="brand-logo">
-            <img src="logo2.png" alt="Mesh Node">
-        </div>
-        <div class="brand-name">Resiliente</div>
-        <h1 data-i18n="mainTitle">Cabo Verde P2P Emergency Mesh</h1>
+  <!-- CHAT MODAL -->
+  <div
+    v-if="store.overlayOpen"
+    class="fixed inset-0 z-[10002] flex items-center justify-center p-4"
+  >
+    <div class="w-full max-w-3xl h-[80vh] bg-[#121212] rounded-lg overflow-hidden flex flex-col shadow-2xl border border-white/10">
+      <!-- Header -->
+      <div class="h-14 border-b border-white/10 flex items-center justify-between px-4 bg-[#1a1a1a]">
+        <button 
+          class="text-lg text-white/90 hover:text-white transition-colors w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10" 
+          @click="closeChat"
+        >
+          ←
+        </button>
         
-        <div class="lang-switcher">
-            <button class="lang-btn active" data-lang="pt">🇵🇹 Português</button>
-            <button class="lang-btn" data-lang="kea">🇨🇻 Kriolu</button>
-            <button class="lang-btn" data-lang="en">🇬🇧 English</button>
-            <button class="lang-btn" data-lang="fr">🇫🇷 Français</button>
+        <div class="font-medium truncate text-white/95 px-2">
+          {{ recipientName }}
+        </div>
+        
+        <!-- Header Icons -->
+        <div class="flex items-center gap-2">
+          <button 
+            class="text-white/50 hover:text-white transition-colors w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10" 
+            @click="closeChat"
+          >
+            ✕
+          </button>
+        </div>
+      </div>
+
+      <!-- Messages Container -->
+      <div 
+        ref="scroller" 
+        class="flex-1 overflow-y-auto bg-[#121212] p-4"
+        @scroll="handleScroll"
+      >
+        <!-- Loading State -->
+        <div v-if="store.overlayLoading" class="flex items-center justify-center h-full">
+          <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-white/30"></div>
         </div>
 
-        <div style="text-align: center;"><span class="tagline" data-i18n="tagline"><i class="fas fa-broadcast-tower"></i> Offline‑First · AI translation · Island‑wide resilience</span></div>
-
-        <div class="tab-bar">
-            <button class="tab-btn active" data-tab="pitch-tab" data-i18n="tabPitch"><i class="fas fa-chalkboard-user"></i> Pitch & Benefits</button>
-            <button class="tab-btn" data-tab="tech-tab" data-i18n="tabTech"><i class="fas fa-microchip"></i> Tech & Cost Plan</button>
+        <!-- Error State -->
+        <div v-else-if="store.overlayError" class="flex items-center justify-center h-full">
+          <div class="text-center text-red-400">
+            <i class="fas fa-exclamation-circle text-2xl mb-2"></i>
+            <p>{{ store.overlayError }}</p>
+            <button 
+              @click="retryLoad" 
+              class="mt-4 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-white/90 transition-colors"
+            >
+              Try Again
+            </button>
+          </div>
         </div>
 
-        <!-- PITCH TAB -->
-        <div id="pitch-tab" class="tab-pane active-pane">
-            <div class="stat-badge" data-i18n="offlineBadge"><i class="fas fa-satellite-dish"></i> 100% offline P2P mesh • Bluetooth + Wi-Fi Direct • no internet, no downtime</div>
-            <div class="grid-2col">
-                <div class="info-card" data-modal="challenge">
-                    <h3 data-i18n="challengeTitle"><i class="fas fa-bullseye"></i> The Challenge</h3>
-                    <ul class="list-styled" data-i18n-html="challengeList"></ul>
-                </div>
-                <div class="info-card" data-modal="solution">
-                    <h3 data-i18n="solutionTitle"><i class="fas fa-rocket"></i> Our Solution</h3>
-                    <ul class="list-styled" data-i18n-html="solutionList"></ul>
-                </div>
-            </div>
-            <div class="section-title" data-i18n="meshLifecycleTitle">🌍 Mesh Lifecycle</div>
-            <div class="grid-2col">
-                <div class="info-card" data-modal="multihop"><h3 data-i18n="multihopTitle"><i class="fab fa-bluetooth"></i> Multi‑Hop Routing</h3><p data-i18n="multihopDesc">Messages hop via Bluetooth (10-50m) and Wi-Fi Direct (up to 200m). Local routing table prevents duplicates.</p></div>
-                <div class="info-card" data-modal="offlineai"><h3 data-i18n="offlineAITitle"><i class="fas fa-brain"></i> Offline AI</h3><p data-i18n="offlineAIDesc">Lightweight translation models, dictionary cache grows with use. Reduces P2P payload and breaks language barriers.</p></div>
-                <div class="info-card" data-modal="smartsync"><h3 data-i18n="smartSyncTitle"><i class="fas fa-sync-alt"></i> Smart Sync</h3><p data-i18n="smartSyncDesc">Queued messages stored locally, sync to server once connectivity restores. No data loss.</p></div>
-                <div class="info-card" data-modal="hardware"><h3 data-i18n="hardwareTitle"><i class="fas fa-tower-cell"></i> Hardware Boost (optional)</h3><p data-i18n="hardwareDesc">LoRa/mesh relays (1-10km) for remote zones – $100–800 per node.</p></div>
-            </div>
-            <div class="highlight-text" data-i18n-html="impactHighlight"></div>
-            <div style="display: flex; justify-content: center; margin: 25px 0;"><button class="button" id="demoMeshModalBtn" data-i18n="viewSimulation"><i class="fas fa-eye"></i> view mesh simulation →</button></div>
+        <!-- Empty State -->
+        <div 
+          v-else-if="messages.length === 0" 
+          class="flex items-center justify-center h-full text-white/50"
+        >
+          <div class="text-center">
+            <i class="fas fa-comments text-3xl mb-3 opacity-40"></i>
+            <p>Start a conversation with {{ recipientName }}</p>
+          </div>
         </div>
 
-        <!-- TECH & COST PLAN TAB -->
-        <div id="tech-tab" class="tab-pane">
-            <div class="stat-badge" data-i18n="scalableBadge"><i class="fas fa-chart-line"></i> Scalable from urban pilot to nationwide resilience • $20k – $150k investment tiers</div>
-            <div class="section-title" data-i18n="coreArchitectureTitle">📡 Core Architecture</div>
-            <div class="grid-2col">
-                <div class="info-card" data-modal="p2pengine"><h3 data-i18n="p2pEngineTitle"><i class="fas fa-layer-group"></i> P2P Engine</h3><ul class="list-styled" data-i18n-html="p2pEngineList"></ul></div>
-                <div class="info-card" data-modal="aitranslation"><h3 data-i18n="aiTranslationTitle"><i class="fas fa-language"></i> AI Translation Core</h3><ul class="list-styled" data-i18n-html="aiTranslationList"></ul></div>
+        <!-- Messages - using MessageBubble component -->
+        <div v-else>
+          <div 
+            v-for="(message, index) in messages" 
+            :key="message.id"
+            class="mb-3 last:mb-0"
+          >
+            <!-- Date Separator -->
+            <div 
+              v-if="shouldShowDateSeparator(index)" 
+              class="flex justify-center my-4"
+            >
+              <span class="text-xs bg-white/5 text-white/50 px-3 py-1 rounded-full">
+                {{ formatDate(message.created_at) }}
+              </span>
             </div>
-            <div class="section-title" data-i18n="investmentPhasesTitle">💰 Investment Phases</div>
-            <div class="grid-2col">
-                <div class="pricing-box" data-modal="tier1"><div class="price" data-i18n="tier1Price">$20k – $50k</div><p data-i18n-html="tier1Desc"></p></div>
-                <div class="pricing-box" data-modal="tier2"><div class="price" data-i18n="tier2Price">$50k – $100k</div><p data-i18n-html="tier2Desc"></p></div>
-                <div class="pricing-box" data-modal="tier3"><div class="price" data-i18n="tier3Price">$100k – $200k+</div><p data-i18n-html="tier3Desc"></p></div>
-            </div>
-            <div class="section-title" data-i18n="roadmapTitle">📅 Rollout Roadmap</div>
-            <div class="grid-2col">
-                <div class="info-card" data-modal="phase1"><h3 data-i18n="phase1Title"><i class="fas fa-flask"></i> Phase 1 – Pilot</h3><ul class="list-styled" data-i18n-html="phase1List"></ul></div>
-                <div class="info-card" data-modal="phase2"><h3 data-i18n="phase2Title"><i class="fas fa-expand-arrows-alt"></i> Phase 2 – Islands</h3><ul class="list-styled" data-i18n-html="phase2List"></ul></div>
-                <div class="info-card" data-modal="phase3"><h3 data-i18n="phase3Title"><i class="fas fa-flag-checkered"></i> Phase 3 – National</h3><ul class="list-styled" data-i18n-html="phase3List"></ul></div>
-            </div>
-            <div class="highlight-text" data-i18n-html="hardwareNote"></div>
-        </div>
 
-        <div id="pwaInstallBanner" class="pwa-install-banner" style="display: none;" data-i18n="installPWA"><i class="fas fa-download"></i> Install Resiliente (PWA) — mesh ready</div>
-        <div class="footer-note" data-i18n="footerNote"><i class="fas fa-globe"></i> Terminal‑grade P2P mesh | Built for Cabo Verde resilience | Full data ownership</div>
+            <MessageBubble
+              :message="message"
+              :is-own-message="message.user_id === store.currentUserId"
+              :is-medium-desktop="false"
+              :is-small-desktop="false"
+              :user-language="store.userLanguage || 'en'"
+              @open-media="openMedia"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Message Input Area -->
+      <div class="border-t border-white/10 p-4 bg-[#1a1a1a]">
+        <MessageInput
+          v-model="newMessage"
+          :sending-message="sending"
+          :selected-chat="currentChat"
+          :is-medium-desktop="false"
+          :is-small-desktop="false"
+          @send-message="sendMessage"
+          @open-payment="openPaymentModal"
+          @media-selected="handleMediaSelected"
+        />
+      </div>
     </div>
+  </div>
 
-    <!-- Accessibility Widget -->
-    <div class="accessibility-widget">
-        <button id="a11y-large-text" aria-label="Large text"><i class="fas fa-text-height"></i></button>
-        <button id="a11y-high-contrast" aria-label="High contrast"><i class="fas fa-adjust"></i></button>
-        <button id="a11y-visible-focus" aria-label="Visible focus"><i class="fas fa-eye"></i></button>
+  <!-- PAYMENT MODAL -->
+  <Teleport to="body">
+    <SubdomainChatPaymentModal
+      v-if="showPaymentModal && currentChat"
+      :show="showPaymentModal"
+      :chat="currentChat"
+      :currentUserId="store.currentUserId"
+      :targetUser="store.overlayTargetUser"
+      @close="closePaymentModal"
+      @payment-sent="handlePaymentSent"
+    />
+  </Teleport>
+
+  <!-- MEDIA PREVIEW MODAL - Fixed: image now scales without scrollbars -->
+  <Teleport to="body">
+    <div 
+      v-if="showMediaModal" 
+      class="fixed inset-0 z-[10003] bg-black/90 flex items-center justify-center p-4 overflow-hidden"
+      @click="showMediaModal = false"
+    >
+      <img 
+        :src="mediaModalUrl" 
+        class="max-w-[calc(100vw-2rem)] max-h-[calc(100vh-2rem)] w-auto h-auto object-contain"
+        @click.stop
+      />
+      <button 
+        class="absolute top-4 right-4 text-white/70 hover:text-white text-2xl z-10"
+        @click="showMediaModal = false"
+      >
+        ✕
+      </button>
     </div>
+  </Teleport>
+</template>
 
-    <!-- Mesh Demo Modal -->
-    <div class="modal-overlay" id="meshDemoModal">
-        <div class="modal-content">
-            <div class="modal-header"><h2><i class="fas fa-share-alt"></i> <span data-i18n="meshModalTitle">P2P Mesh Terminal View</span></h2><button class="close-modal">&times;</button></div>
-            <div class="modal-body">
-                <div class="stat-badge"><i class="fas fa-sync-alt"></i> <span data-i18n="multiHopPropagation">Multi‑hop propagation</span></div>
-                <div class="mesh-demo">
-                    <div class="mesh-nodes"><i class="fas fa-mobile-alt"></i> <i class="fas fa-arrow-right"></i> <i class="fas fa-mobile-alt"></i> <i class="fas fa-arrow-right"></i> <i class="fas fa-mobile-alt"></i> <i class="fas fa-arrow-right"></i> <i class="fas fa-check-circle"></i></div>
-                    <p style="margin-top: 20px;" data-i18n-html="meshModalDesc"></p>
-                    <p style="color:#39FF14;" data-i18n="rangeInfo">➜ Range: Bluetooth 50m | Wi‑Fi Direct 200m | LoRa optional 10km</p>
-                </div>
-                <div class="footer-note" style="margin-top: 12px;" data-i18n="meshFooter">Delivery acknowledgement + store‑and‑forward ensures 100% reliability</div>
-            </div>
-        </div>
-    </div>
+<script setup>
+import { ref, computed, watch, nextTick, onMounted, onUnmounted } from 'vue'
+import axios from 'axios'
+import { chatStore } from '@/stores/subdomainChatStore'
+import { useSubdomainDM } from '@/composables/useSubdomainDM'
+import SubdomainChatPaymentModal from '@/components/chat/SubdomainChatPaymentModal.vue'
+import MessageInput from '@/components/chat/MessageInput.vue'
+import MessageBubble from '@/components/chat/MessageBubble.vue'
 
-    <!-- Dynamic Modals Container -->
-    <div id="dynamicModalsContainer"></div>
+// No props – everything comes from the store
+const emit = defineEmits(['close'])
 
-    <script>
-        (function() {
-            // ========== FULL TRANSLATION DICTIONARIES (all 4 languages) ==========
-            const translations = {
-                pt: {
-                    mainTitle: 'Cabo Verde P2P Emergency Mesh',
-                    tagline: '<i class="fas fa-broadcast-tower"></i> Offline‑First · Tradução IA · Resiliência em todo o arquipélago',
-                    tabPitch: '<i class="fas fa-chalkboard-user"></i> Proposta e Benefícios',
-                    tabTech: '<i class="fas fa-microchip"></i> Tecnologia e Custos',
-                    offlineBadge: '<i class="fas fa-satellite-dish"></i> 100% malha P2P offline • Bluetooth + Wi-Fi Direct • sem internet, sem interrupções',
-                    challengeTitle: '<i class="fas fa-bullseye"></i> O Desafio',
-                    challengeList: '<li><i class="fas fa-cloud-sun"></i> Tempestades, apagões, cortes de fibra – falhas frequentes nas 10 ilhas.</li><li><i class="fas fa-comments"></i> Comunicação crítica falha durante emergências.</li><li><i class="fas fa-language"></i> População multilingue (Português, Crioulo, diáspora).</li>',
-                    solutionTitle: '<i class="fas fa-rocket"></i> A Nossa Solução',
-                    solutionList: '<li><i class="fas fa-project-diagram"></i> Malha descentralizada usando cada smartphone como retransmissor.</li><li><i class="fas fa-robot"></i> Tradução IA no dispositivo + cache (prioridade Crioulo).</li><li><i class="fas fa-cloud-upload-alt"></i> Sincronização automática na nuvem quando a internet voltar.</li><li><i class="fas fa-shield-alt"></i> Encriptação ponta-a-ponta + autenticação de dispositivo.</li>',
-                    meshLifecycleTitle: '🌍 Ciclo de Vida da Malha',
-                    multihopTitle: '<i class="fab fa-bluetooth"></i> Encaminhamento Multi-Salto',
-                    multihopDesc: 'As mensagens saltam via Bluetooth (10-50m) e Wi-Fi Direct (até 200m). Tabela de encaminhamento local evita duplicados.',
-                    offlineAITitle: '<i class="fas fa-brain"></i> IA Offline',
-                    offlineAIDesc: 'Modelos de tradução leves, cache de dicionário cresce com o uso. Reduz carga P2P e quebra barreiras linguísticas.',
-                    smartSyncTitle: '<i class="fas fa-sync-alt"></i> Sincronização Inteligente',
-                    smartSyncDesc: 'Mensagens em fila armazenadas localmente, sincronizadas com o servidor quando a conectividade regressa. Sem perda de dados.',
-                    hardwareTitle: '<i class="fas fa-tower-cell"></i> Reforço de Hardware (opcional)',
-                    hardwareDesc: 'Retransmissores LoRa/malha (1-10km) para zonas remotas – $100–800 por nó.',
-                    impactHighlight: '<i class="fas fa-check-circle"></i> <strong>Impacto imediato:</strong> Residentes comunicam durante apagões, equipas de emergência coordenam sem infraestrutura, diáspora mantém-se ligada.',
-                    viewSimulation: '<i class="fas fa-eye"></i> ver simulação da malha →',
-                    scalableBadge: '<i class="fas fa-chart-line"></i> Escalável de piloto urbano a resiliência nacional • $20k – $150k níveis de investimento',
-                    coreArchitectureTitle: '📡 Arquitetura Central',
-                    p2pEngineTitle: '<i class="fas fa-layer-group"></i> Motor P2P',
-                    p2pEngineList: '<li><i class="fas fa-code-branch"></i> Malha Bluetooth + Wi-Fi Direct com multi-salto</li><li><i class="fas fa-database"></i> Fila SQLite local + lógica de repetição</li><li><i class="fas fa-id-card"></i> Impressão digital do dispositivo e tabelas de encaminhamento</li>',
-                    aiTranslationTitle: '<i class="fas fa-language"></i> Núcleo de Tradução IA',
-                    aiTranslationList: '<li><i class="fas fa-microphone-alt"></i> Modelos no dispositivo para Crioulo / PT / EN</li><li><i class="fas fa-archive"></i> Cache de dicionário + sincronização de corpus na nuvem</li><li><i class="fas fa-globe"></i> Mais de 45 idiomas para famílias da diáspora</li>',
-                    investmentPhasesTitle: '💰 Fases de Investimento',
-                    tier1Price: '$20k – $50k',
-                    tier1Desc: '<strong>P2P Essencial</strong><br>Malha Bluetooth + grupos offline + sincronização + cache básico de IA. Cobertura urbana (Praia, Mindelo).',
-                    tier2Price: '$50k – $100k',
-                    tier2Desc: '<strong>Nível Intermédio</strong><br>Wi-Fi Direct, tradução IA completa, encaminhamento multi-salto, piloto em 3 ilhas.',
-                    tier3Price: '$100k – $200k+',
-                    tier3Desc: '<strong>Robusto Nacional</strong><br>Retransmissores LoRa, malha inter-ilhas, análises em tempo real, auditoria de segurança.',
-                    roadmapTitle: '📅 Roteiro de Implementação',
-                    phase1Title: '<i class="fas fa-flask"></i> Fase 1 – Piloto',
-                    phase1List: '<li>Praia + Mindelo (500 dispositivos)</li><li>Testar fiabilidade da malha e tradução IA offline</li><li>8–10 semanas</li>',
-                    phase2Title: '<i class="fas fa-expand-arrows-alt"></i> Fase 2 – Ilhas',
-                    phase2List: '<li>Santiago, Sal, Boa Vista, Fogo</li><li>Implementar retransmissores Wi‑Fi/LoRa opcionais</li><li>12 semanas</li>',
-                    phase3Title: '<i class="fas fa-flag-checkered"></i> Fase 3 – Nacional',
-                    phase3List: '<li>500 mil utilizadores de smartphone elegíveis</li><li>Integração com governo e serviços de emergência</li><li>Atualizações contínuas de tradução</li>',
-                    hardwareNote: '<i class="fas fa-hand-holding-usd"></i> Hardware opcional – nós $100–800. Cidadãos usam telefones existentes. E2EE incluído.',
-                    installPWA: '<i class="fas fa-download"></i> Instalar Resiliente (PWA) — malha pronta',
-                    footerNote: '<i class="fas fa-globe"></i> Malha P2P de nível terminal | Construído para a resiliência de Cabo Verde | Propriedade total dos dados',
-                    meshModalTitle: 'Vista Terminal da Malha P2P',
-                    multiHopPropagation: 'Propagação multi-salto',
-                    meshModalDesc: '📡 Mensagem salta dispositivo → dispositivo → dispositivo → destinatário.<br>IA offline traduz em tempo real: "Ajuda" → "Ajuda (Crioulo)" com dicionário em cache.',
-                    rangeInfo: '➜ Alcance: Bluetooth 50m | Wi‑Fi Direct 200m | LoRa opcional 10km',
-                    meshFooter: 'Confirmação de entrega + store‑and‑forward garante 100% de fiabilidade',
-                    moreInfoBtn: '<i class="fas fa-ellipsis-h"></i> Mais Info <i class="fas fa-arrow-right"></i>',
-                    keyTakeaway: 'Este componente está totalmente projetado e pronto para implementação.',
-                    diagramLabel: 'Diagrama / Ilustração'
-                },
-                kea: {
-                    mainTitle: 'Cabo Verde P2P Emergency Mesh',
-                    tagline: '<i class="fas fa-broadcast-tower"></i> Offline‑First · Traduson IA · Reziliênsia na tudu ilha',
-                    tabPitch: '<i class="fas fa-chalkboard-user"></i> Proposta i Benefísiu',
-                    tabTech: '<i class="fas fa-microchip"></i> Teknolojia i Kustu',
-                    offlineBadge: '<i class="fas fa-satellite-dish"></i> 100% malha P2P offline • Bluetooth + Wi-Fi Direct • sin internet, sin parada',
-                    challengeTitle: '<i class="fas fa-bullseye"></i> Dizafiu',
-                    challengeList: '<li><i class="fas fa-cloud-sun"></i> Tempestadi, apagon, kórti di fibra – falhas frekuenti na 10 ilhas.</li><li><i class="fas fa-comments"></i> Komunikason krítika falha duranti imerjênsia.</li><li><i class="fas fa-language"></i> Populason multilingual (Purtugês, Kriolu, diáspora).</li>',
-                    solutionTitle: '<i class="fas fa-rocket"></i> Nôs Soluson',
-                    solutionList: '<li><i class="fas fa-project-diagram"></i> Malha disentralizada uzandu kda smartphone komu retransmisor.</li><li><i class="fas fa-robot"></i> Traduson IA na dispozitivu + cache (prioridadi Kriolu).</li><li><i class="fas fa-cloud-upload-alt"></i> Sinkronizason otomátiku na nuvin kantu internet torna.</li><li><i class="fas fa-shield-alt"></i> Enkriptason ponta-a-ponta + otentikason di dispozitivu.</li>',
-                    meshLifecycleTitle: '🌍 Siklu di Vida di Malha',
-                    multihopTitle: '<i class="fab fa-bluetooth"></i> Enkaminhamentu Multi-Saltu',
-                    multihopDesc: 'Mensajen salta via Bluetooth (10-50m) i Wi-Fi Direct (até 200m). Tabela di enkaminhamentu lokal evita duplikadus.',
-                    offlineAITitle: '<i class="fas fa-brain"></i> IA Offline',
-                    offlineAIDesc: 'Modelus di traduson levi, cache di disionáriu krese ku uzu. Reduz karga P2P i kebra bareras linguístikas.',
-                    smartSyncTitle: '<i class="fas fa-sync-alt"></i> Sinkronizason Intelijenti',
-                    smartSyncDesc: 'Mensajen na fila armazenadu lokalmenti, sinkronizadu ku servidor kantu konetividadi volta. Sin perda di dadus.',
-                    hardwareTitle: '<i class="fas fa-tower-cell"></i> Reforsu di Hardware (opsional)',
-                    hardwareDesc: 'Retransmisores LoRa/malha (1-10km) pa zonas remotas – $100–800 pa nó.',
-                    impactHighlight: '<i class="fas fa-check-circle"></i> <strong>Impaktu imediatu:</strong> Rezidentis komunika duranti apagon, ekipas di imerjênsia koordena sin infrastrutura, diáspora fika ligadu.',
-                    viewSimulation: '<i class="fas fa-eye"></i> odja simulason di malha →',
-                    scalableBadge: '<i class="fas fa-chart-line"></i> Skalável di pilotu urbanu pa reziliênsia nasional • $20k – $150k nivel di investimentu',
-                    coreArchitectureTitle: '📡 Arkitetura Sentral',
-                    p2pEngineTitle: '<i class="fas fa-layer-group"></i> Motor P2P',
-                    p2pEngineList: '<li><i class="fas fa-code-branch"></i> Malha Bluetooth + Wi-Fi Direct ku multi-saltu</li><li><i class="fas fa-database"></i> Fila SQLite lokal + lójika di ripitison</li><li><i class="fas fa-id-card"></i> Enpreson dijital di dispozitivu i tabelas di enkaminhamentu</li>',
-                    aiTranslationTitle: '<i class="fas fa-language"></i> Núkleu di Traduson IA',
-                    aiTranslationList: '<li><i class="fas fa-microphone-alt"></i> Modelus na dispozitivu pa Kriolu / PT / EN</li><li><i class="fas fa-archive"></i> Cache di disionáriu + sinkronizason di korpus na nuvin</li><li><i class="fas fa-globe"></i> Más di 45 línguas pa famílias di diáspora</li>',
-                    investmentPhasesTitle: '💰 Fazis di Investimentu',
-                    tier1Price: '$20k – $50k',
-                    tier1Desc: '<strong>P2P Esensial</strong><br>Malha Bluetooth + grupus offline + sinkronizason + cache básiku di IA. Kobertura urbana (Praia, Mindelo).',
-                    tier2Price: '$50k – $100k',
-                    tier2Desc: '<strong>Nivel Intermédiu</strong><br>Wi-Fi Direct, traduson IA kompleta, enkaminhamentu multi-saltu, pilotu na 3 ilhas.',
-                    tier3Price: '$100k – $200k+',
-                    tier3Desc: '<strong>Robustu Nasional</strong><br>Retransmisores LoRa, malha inter-ilhas, análizi en tempu real, auditoria di siguransa.',
-                    roadmapTitle: '📅 Roteru di Implementason',
-                    phase1Title: '<i class="fas fa-flask"></i> Fazi 1 – Pilotu',
-                    phase1List: '<li>Praia + Mindelo (500 dispozitivus)</li><li>Tista fiabilidadi di malha i traduson IA offline</li><li>8–10 simanas</li>',
-                    phase2Title: '<i class="fas fa-expand-arrows-alt"></i> Fazi 2 – Ilhas',
-                    phase2List: '<li>Santiago, Sal, Boa Vista, Fogo</li><li>Implementa retransmisores Wi‑Fi/LoRa opsional</li><li>12 simanas</li>',
-                    phase3Title: '<i class="fas fa-flag-checkered"></i> Fazi 3 – Nasional',
-                    phase3List: '<li>500 mil utilizadoris di smartphone elijível</li><li>Integrason ku guvernu i servisus di imerjênsia</li><li>Atualizason kontínua di traduson</li>',
-                    hardwareNote: '<i class="fas fa-hand-holding-usd"></i> Hardware opsional – nós $100–800. Sidadons uza telefones ezistenti. E2EE inkluídu.',
-                    installPWA: '<i class="fas fa-download"></i> Instala Resiliente (PWA) — malha prontu',
-                    footerNote: '<i class="fas fa-globe"></i> Malha P2P di nivel terminal | Konstruídu pa reziliênsia di Kabu Verdi | Propriedadi total di dadus',
-                    meshModalTitle: 'Vista Terminal di Malha P2P',
-                    multiHopPropagation: 'Propagason multi-saltu',
-                    meshModalDesc: '📡 Mensajen salta dispozitivu → dispozitivu → dispozitivu → distinatáriu.<br>IA offline traduz en tempu real: "Ajuda" → "Ajuda (Kriolu)" ku disionáriu en cache.',
-                    rangeInfo: '➜ Alkansi: Bluetooth 50m | Wi‑Fi Direct 200m | LoRa opsional 10km',
-                    meshFooter: 'Konfirmason di entrega + store‑and‑forward garanti 100% di fiabilidadi',
-                    moreInfoBtn: '<i class="fas fa-ellipsis-h"></i> Más Enformason <i class="fas fa-arrow-right"></i>',
-                    keyTakeaway: 'Es komponenti sta totalmenti projétadu i prontu pa implementason.',
-                    diagramLabel: 'Diagrama / Ilustrason'
-                },
-                en: {
-                    mainTitle: 'Cabo Verde P2P Emergency Mesh',
-                    tagline: '<i class="fas fa-broadcast-tower"></i> Offline‑First · AI translation · Island‑wide resilience',
-                    tabPitch: '<i class="fas fa-chalkboard-user"></i> Pitch & Benefits',
-                    tabTech: '<i class="fas fa-microchip"></i> Tech & Cost Plan',
-                    offlineBadge: '<i class="fas fa-satellite-dish"></i> 100% offline P2P mesh • Bluetooth + Wi-Fi Direct • no internet, no downtime',
-                    challengeTitle: '<i class="fas fa-bullseye"></i> The Challenge',
-                    challengeList: '<li><i class="fas fa-cloud-sun"></i> Storms, outages, fiber cuts – frequent gaps across 10 islands.</li><li><i class="fas fa-comments"></i> Critical communication fails during emergencies.</li><li><i class="fas fa-language"></i> Multilingual population (Portuguese, Kriolu, diaspora).</li>',
-                    solutionTitle: '<i class="fas fa-rocket"></i> Our Solution',
-                    solutionList: '<li><i class="fas fa-project-diagram"></i> Decentralized mesh using every smartphone as relay.</li><li><i class="fas fa-robot"></i> On-device AI translation + cache (Kriolu priority).</li><li><i class="fas fa-cloud-upload-alt"></i> Auto cloud sync when internet returns.</li><li><i class="fas fa-shield-alt"></i> End-to-end encryption + device auth.</li>',
-                    meshLifecycleTitle: '🌍 Mesh Lifecycle',
-                    multihopTitle: '<i class="fab fa-bluetooth"></i> Multi‑Hop Routing',
-                    multihopDesc: 'Messages hop via Bluetooth (10-50m) and Wi-Fi Direct (up to 200m). Local routing table prevents duplicates.',
-                    offlineAITitle: '<i class="fas fa-brain"></i> Offline AI',
-                    offlineAIDesc: 'Lightweight translation models, dictionary cache grows with use. Reduces P2P payload and breaks language barriers.',
-                    smartSyncTitle: '<i class="fas fa-sync-alt"></i> Smart Sync',
-                    smartSyncDesc: 'Queued messages stored locally, sync to server once connectivity restores. No data loss.',
-                    hardwareTitle: '<i class="fas fa-tower-cell"></i> Hardware Boost (optional)',
-                    hardwareDesc: 'LoRa/mesh relays (1-10km) for remote zones – $100–800 per node.',
-                    impactHighlight: '<i class="fas fa-check-circle"></i> <strong>Immediate impact:</strong> Residents communicate during blackouts, emergency teams coordinate without infrastructure, diaspora stays connected.',
-                    viewSimulation: '<i class="fas fa-eye"></i> view mesh simulation →',
-                    scalableBadge: '<i class="fas fa-chart-line"></i> Scalable from urban pilot to nationwide resilience • $20k – $150k investment tiers',
-                    coreArchitectureTitle: '📡 Core Architecture',
-                    p2pEngineTitle: '<i class="fas fa-layer-group"></i> P2P Engine',
-                    p2pEngineList: '<li><i class="fas fa-code-branch"></i> Bluetooth + Wi-Fi Direct mesh with multi‑hop</li><li><i class="fas fa-database"></i> Local SQLite queue + retry logic</li><li><i class="fas fa-id-card"></i> Device fingerprinting & routing tables</li>',
-                    aiTranslationTitle: '<i class="fas fa-language"></i> AI Translation Core',
-                    aiTranslationList: '<li><i class="fas fa-microphone-alt"></i> On‑device models for Kriolu / PT / EN</li><li><i class="fas fa-archive"></i> Dictionary cache + cloud corpus sync</li><li><i class="fas fa-globe"></i> 45+ languages for diaspora families</li>',
-                    investmentPhasesTitle: '💰 Investment Phases',
-                    tier1Price: '$20k – $50k',
-                    tier1Desc: '<strong>Essential P2P</strong><br>Bluetooth mesh + offline groups + sync + basic AI cache. Urban coverage (Praia, Mindelo).',
-                    tier2Price: '$50k – $100k',
-                    tier2Desc: '<strong>Mid‑tier</strong><br>Wi-Fi Direct, full AI translation, multi‑hop routing, 3‑island pilot.',
-                    tier3Price: '$100k – $200k+',
-                    tier3Desc: '<strong>Nationwide Robust</strong><br>LoRa relays, inter‑island mesh, real‑time analytics, security audit.',
-                    roadmapTitle: '📅 Rollout Roadmap',
-                    phase1Title: '<i class="fas fa-flask"></i> Phase 1 – Pilot',
-                    phase1List: '<li>Praia + Mindelo (500 devices)</li><li>Test mesh reliability & AI translation offline</li><li>8‑10 weeks</li>',
-                    phase2Title: '<i class="fas fa-expand-arrows-alt"></i> Phase 2 – Islands',
-                    phase2List: '<li>Santiago, Sal, Boa Vista, Fogo</li><li>Deploy optional Wi‑Fi/LoRa relays</li><li>12 weeks</li>',
-                    phase3Title: '<i class="fas fa-flag-checkered"></i> Phase 3 – National',
-                    phase3List: '<li>500k smartphone users eligible</li><li>Gov & emergency services integration</li><li>Continuous translation updates</li>',
-                    hardwareNote: '<i class="fas fa-hand-holding-usd"></i> Hardware optional – nodes $100–800. Citizens use existing phones. E2EE included.',
-                    installPWA: '<i class="fas fa-download"></i> Install Resiliente (PWA) — mesh ready',
-                    footerNote: '<i class="fas fa-globe"></i> Terminal‑grade P2P mesh | Built for Cabo Verde resilience | Full data ownership',
-                    meshModalTitle: 'P2P Mesh Terminal View',
-                    multiHopPropagation: 'Multi‑hop propagation',
-                    meshModalDesc: '📡 Message hops device → device → device → recipient.<br>Offline AI translates on the fly: "Ajuda" → "Ajuda (Kriolu)" with cached dictionary.',
-                    rangeInfo: '➜ Range: Bluetooth 50m | Wi‑Fi Direct 200m | LoRa optional 10km',
-                    meshFooter: 'Delivery acknowledgement + store‑and‑forward ensures 100% reliability',
-                    moreInfoBtn: '<i class="fas fa-ellipsis-h"></i> More Info <i class="fas fa-arrow-right"></i>',
-                    keyTakeaway: 'This component is fully designed and ready for implementation.',
-                    diagramLabel: 'Diagram / Illustration'
-                },
-                fr: {
-                    mainTitle: 'Cabo Verde P2P Emergency Mesh',
-                    tagline: '<i class="fas fa-broadcast-tower"></i> Offline‑First · Traduction IA · Résilience sur toutes les îles',
-                    tabPitch: '<i class="fas fa-chalkboard-user"></i> Proposition et Avantages',
-                    tabTech: '<i class="fas fa-microchip"></i> Technologie et Coûts',
-                    offlineBadge: '<i class="fas fa-satellite-dish"></i> 100% maillage P2P hors ligne • Bluetooth + Wi-Fi Direct • sans internet, sans interruption',
-                    challengeTitle: '<i class="fas fa-bullseye"></i> Le Défi',
-                    challengeList: '<li><i class="fas fa-cloud-sun"></i> Tempêtes, pannes, coupures de fibre – interruptions fréquentes sur 10 îles.</li><li><i class="fas fa-comments"></i> Les communications critiques échouent pendant les urgences.</li><li><i class="fas fa-language"></i> Population multilingue (Portugais, Créole, diaspora).</li>',
-                    solutionTitle: '<i class="fas fa-rocket"></i> Notre Solution',
-                    solutionList: '<li><i class="fas fa-project-diagram"></i> Maillage décentralisé utilisant chaque smartphone comme relais.</li><li><i class="fas fa-robot"></i> Traduction IA sur appareil + cache (priorité Créole).</li><li><i class="fas fa-cloud-upload-alt"></i> Synchronisation cloud automatique au retour d\'internet.</li><li><i class="fas fa-shield-alt"></i> Chiffrement de bout en bout + authentification des appareils.</li>',
-                    meshLifecycleTitle: '🌍 Cycle de Vie du Maillage',
-                    multihopTitle: '<i class="fab fa-bluetooth"></i> Routage Multi-Sauts',
-                    multihopDesc: 'Les messages rebondissent via Bluetooth (10-50m) et Wi-Fi Direct (jusqu\'à 200m). La table de routage locale évite les doublons.',
-                    offlineAITitle: '<i class="fas fa-brain"></i> IA Hors Ligne',
-                    offlineAIDesc: 'Modèles de traduction légers, le cache du dictionnaire s\'enrichit à l\'usage. Réduit la charge P2P et abolit les barrières linguistiques.',
-                    smartSyncTitle: '<i class="fas fa-sync-alt"></i> Synchronisation Intelligente',
-                    smartSyncDesc: 'Messages en file d\'attente stockés localement, synchronisés avec le serveur dès le retour de la connectivité. Aucune perte de données.',
-                    hardwareTitle: '<i class="fas fa-tower-cell"></i> Renfort Matériel (optionnel)',
-                    hardwareDesc: 'Relais LoRa/maillage (1-10km) pour zones reculées – 100–800$ par nœud.',
-                    impactHighlight: '<i class="fas fa-check-circle"></i> <strong>Impact immédiat :</strong> Les résidents communiquent pendant les pannes, les équipes d\'urgence se coordonnent sans infrastructure, la diaspora reste connectée.',
-                    viewSimulation: '<i class="fas fa-eye"></i> voir la simulation du maillage →',
-                    scalableBadge: '<i class="fas fa-chart-line"></i> Évolutif du pilote urbain à la résilience nationale • 20k$ – 150k$ paliers d\'investissement',
-                    coreArchitectureTitle: '📡 Architecture Centrale',
-                    p2pEngineTitle: '<i class="fas fa-layer-group"></i> Moteur P2P',
-                    p2pEngineList: '<li><i class="fas fa-code-branch"></i> Maillage Bluetooth + Wi-Fi Direct avec multi-sauts</li><li><i class="fas fa-database"></i> File d\'attente SQLite locale + logique de réessai</li><li><i class="fas fa-id-card"></i> Empreinte numérique de l\'appareil et tables de routage</li>',
-                    aiTranslationTitle: '<i class="fas fa-language"></i> Noyau de Traduction IA',
-                    aiTranslationList: '<li><i class="fas fa-microphone-alt"></i> Modèles embarqués pour Créole / PT / EN</li><li><i class="fas fa-archive"></i> Cache du dictionnaire + synchronisation du corpus cloud</li><li><i class="fas fa-globe"></i> Plus de 45 langues pour les familles de la diaspora</li>',
-                    investmentPhasesTitle: '💰 Phases d\'Investissement',
-                    tier1Price: '20k$ – 50k$',
-                    tier1Desc: '<strong>P2P Essentiel</strong><br>Maillage Bluetooth + groupes hors ligne + synchro + cache IA basique. Couverture urbaine (Praia, Mindelo).',
-                    tier2Price: '50k$ – 100k$',
-                    tier2Desc: '<strong>Niveau Intermédiaire</strong><br>Wi-Fi Direct, traduction IA complète, routage multi-sauts, pilote sur 3 îles.',
-                    tier3Price: '100k$ – 200k$+',
-                    tier3Desc: '<strong>Robustesse Nationale</strong><br>Relais LoRa, maillage inter-îles, analyses en temps réel, audit de sécurité.',
-                    roadmapTitle: '📅 Feuille de Route',
-                    phase1Title: '<i class="fas fa-flask"></i> Phase 1 – Pilote',
-                    phase1List: '<li>Praia + Mindelo (500 appareils)</li><li>Tester la fiabilité du maillage et la traduction IA hors ligne</li><li>8–10 semaines</li>',
-                    phase2Title: '<i class="fas fa-expand-arrows-alt"></i> Phase 2 – Îles',
-                    phase2List: '<li>Santiago, Sal, Boa Vista, Fogo</li><li>Déployer des relais Wi‑Fi/LoRa optionnels</li><li>12 semaines</li>',
-                    phase3Title: '<i class="fas fa-flag-checkered"></i> Phase 3 – National',
-                    phase3List: '<li>500k utilisateurs de smartphones éligibles</li><li>Intégration gouvernementale et services d\'urgence</li><li>Mises à jour continues de la traduction</li>',
-                    hardwareNote: '<i class="fas fa-hand-holding-usd"></i> Matériel optionnel – nœuds 100–800$. Les citoyens utilisent leurs téléphones existants. Chiffrement de bout en bout inclus.',
-                    installPWA: '<i class="fas fa-download"></i> Installer Resiliente (PWA) — maillage prêt',
-                    footerNote: '<i class="fas fa-globe"></i> Maillage P2P de niveau terminal | Conçu pour la résilience du Cap-Vert | Pleine propriété des données',
-                    meshModalTitle: 'Vue Terminal du Maillage P2P',
-                    multiHopPropagation: 'Propagation multi-sauts',
-                    meshModalDesc: '📡 Le message saute d\'appareil en appareil → destinataire.<br>L\'IA hors ligne traduit à la volée : "Ajuda" → "Ajuda (Créole)" avec dictionnaire en cache.',
-                    rangeInfo: '➜ Portée : Bluetooth 50m | Wi‑Fi Direct 200m | LoRa optionnel 10km',
-                    meshFooter: 'Accusé de réception + stockage et retransmission garantissent une fiabilité de 100%',
-                    moreInfoBtn: '<i class="fas fa-ellipsis-h"></i> Plus d\'Infos <i class="fas fa-arrow-right"></i>',
-                    keyTakeaway: 'Ce composant est entièrement conçu et prêt à être mis en œuvre.',
-                    diagramLabel: 'Diagramme / Illustration'
-                }
-            };
+// ===== Composables =====
+const { getOrCreateChat } = useSubdomainDM()
 
-            // Modal definitions with full content (simplified structure - in actual code all 14 would be defined)
-            const modalDefinitions = [
-                { key: 'challenge', icon: 'fa-bullseye', img: '1.png', titleKey: 'challengeTitle', descKey: 'challengeDesc' },
-                { key: 'solution', icon: 'fa-rocket', img: '2.png', titleKey: 'solutionTitle', descKey: 'solutionDesc' },
-                { key: 'multihop', icon: 'fa-bluetooth', img: '3.png', titleKey: 'multihopTitle', descKey: 'multihopDesc' },
-                { key: 'offlineai', icon: 'fa-brain', img: '4.png', titleKey: 'offlineAITitle', descKey: 'offlineAIDesc' },
-                { key: 'smartsync', icon: 'fa-sync-alt', img: '5.png', titleKey: 'smartSyncTitle', descKey: 'smartSyncDesc' },
-                { key: 'hardware', icon: 'fa-tower-cell', img: '6.png', titleKey: 'hardwareTitle', descKey: 'hardwareDesc' },
-                { key: 'p2pengine', icon: 'fa-layer-group', img: '7.png', titleKey: 'p2pEngineTitle', descKey: 'p2pEngineDesc' },
-                { key: 'aitranslation', icon: 'fa-language', img: '8.png', titleKey: 'aiTranslationTitle', descKey: 'aiTranslationDesc' },
-                { key: 'tier1', icon: 'fa-dollar-sign', img: '9.png', titleKey: 'tier1Price', descKey: 'tier1Desc' },
-                { key: 'tier2', icon: 'fa-dollar-sign', img: '10.png', titleKey: 'tier2Price', descKey: 'tier2Desc' },
-                { key: 'tier3', icon: 'fa-dollar-sign', img: '11.png', titleKey: 'tier3Price', descKey: 'tier3Desc' },
-                { key: 'phase1', icon: 'fa-flask', img: '12.png', titleKey: 'phase1Title', descKey: 'phase1Desc' },
-                { key: 'phase2', icon: 'fa-expand-arrows-alt', img: '13.png', titleKey: 'phase2Title', descKey: 'phase2Desc' },
-                { key: 'phase3', icon: 'fa-flag-checkered', img: '14.png', titleKey: 'phase3Title', descKey: 'phase3Desc' }
-            ];
+// ===== Local State =====
+const newMessage = ref('')
+const sending = ref(false)
+const showPaymentModal = ref(false)
+const showMediaModal = ref(false)
+const mediaModalUrl = ref('')
+const currentChat = ref(null)
+const scroller = ref(null)
+const echoChannel = ref(null)
+const isNearBottom = ref(true)
+const usersMap = ref(new Map())
 
-            // Build modals dynamically
-            const container = document.getElementById('dynamicModalsContainer');
-            let currentLang = 'pt';
+// ===== Computed =====
+const store = computed(() => chatStore)
 
-            function buildModals(lang) {
-                container.innerHTML = '';
-                const t = translations[lang];
-                modalDefinitions.forEach(def => {
-                    const modalDiv = document.createElement('div');
-                    modalDiv.className = 'modal-overlay';
-                    modalDiv.id = `modal-${def.key}`;
-                    modalDiv.innerHTML = `
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h2><i class="fas ${def.icon}"></i> ${t[def.titleKey] || def.key}</h2>
-                                <button class="close-modal">&times;</button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="stat-badge"><i class="fas fa-image"></i> ${t.diagramLabel}</div>
-                                <img src="${def.img}" alt="${t[def.titleKey]}" class="placeholder-media" onerror="this.style.display='none'">
-                                <div>${t[def.descKey] || ''}</div>
-                                <div class="highlight-text" style="margin-top:20px;">
-                                    <i class="fas fa-lightbulb"></i> <strong>${t.keyTakeaway}</strong>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    container.appendChild(modalDiv);
-                });
-                attachMoreInfoButtons();
-            }
+const recipientName = computed(() => {
+  return store.value.overlayTargetUser?.name || 
+         currentChat.value?.users?.find(u => u.id !== store.value.currentUserId)?.name || 
+         'User'
+})
 
-            function attachMoreInfoButtons() {
-                document.querySelectorAll('[data-modal]').forEach(card => {
-                    const modalKey = card.getAttribute('data-modal');
-                    if (!card.querySelector('.more-info-btn')) {
-                        const btn = document.createElement('button');
-                        btn.className = 'more-info-btn';
-                        btn.innerHTML = translations[currentLang].moreInfoBtn;
-                        btn.addEventListener('click', (e) => {
-                            e.stopPropagation();
-                            const modal = document.getElementById(`modal-${modalKey}`);
-                            if (modal) openModal(modal);
-                        });
-                        card.appendChild(btn);
-                    }
-                });
-            }
+const messages = computed(() => {
+  if (!store.value.overlayChatId) return []
+  return store.value.messages[store.value.overlayChatId] || []
+})
 
-            function applyLanguage(lang) {
-                currentLang = lang;
-                const t = translations[lang];
-                document.querySelectorAll('[data-i18n]').forEach(el => {
-                    const key = el.getAttribute('data-i18n');
-                    if (t[key]) el.innerHTML = t[key];
-                });
-                document.querySelectorAll('[data-i18n-html]').forEach(el => {
-                    const key = el.getAttribute('data-i18n-html');
-                    if (t[key]) el.innerHTML = t[key];
-                });
-                document.querySelectorAll('.lang-btn').forEach(btn => {
-                    btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
-                });
-                document.documentElement.lang = lang;
-                buildModals(lang);
-                localStorage.setItem('preferredLanguage', lang);
-            }
+const backgroundStyles = computed(() => {
+  if (store.value.overlayTargetUser?.profile_photo_url) {
+    return {
+      backgroundImage: `url('${store.value.overlayTargetUser.profile_photo_url}')`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center center',
+      backgroundRepeat: 'no-repeat',
+      opacity: '0.12',
+      filter: 'blur(12px) grayscale(50%) brightness(0.8)',
+    }
+  }
+  return {
+    background: 'linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(45, 45, 45, 0.95) 100%)',
+  }
+})
 
-            // Modal open/close
-            function openModal(modal) { modal.classList.add('active'); document.body.style.overflow = 'hidden'; }
-            function closeModal(modal) { modal.classList.remove('active'); document.body.style.overflow = ''; }
+// ===== Methods =====
+const closeChat = () => {
+  console.log('[Overlay] Closing chat')
+  chatStore.closeOverlay()
+  currentChat.value = null
+  emit('close')
+}
 
-            // Language switcher
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.addEventListener('click', () => applyLanguage(btn.getAttribute('data-lang')));
-            });
+const retryLoad = () => {
+  store.value.overlayError = null
+  initializeChat()
+}
 
-            // Initialize
-            applyLanguage(localStorage.getItem('preferredLanguage') || 'pt');
+const loadCurrentUser = async () => {
+  if (store.value.currentUserId) return
 
-            // Tab switching
-            const tabBtns = document.querySelectorAll('.tab-btn');
-            const panes = document.querySelectorAll('.tab-pane');
-            tabBtns.forEach(btn => btn.addEventListener('click', () => {
-                const tabId = btn.getAttribute('data-tab');
-                panes.forEach(p => p.classList.remove('active-pane'));
-                document.getElementById(tabId).classList.add('active-pane');
-                tabBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-            }));
+  try {
+    const res = await axios.get('/api/user')
+    chatStore.setCurrentUserId(res.data.id)
+    usersMap.value.set(res.data.id, res.data)
+  } catch (error) {
+    console.error('[Overlay] Failed to load current user:', error)
+    store.value.overlayError = 'Please log in to send messages.'
+  }
+}
 
-            // Mesh demo modal
-            const demoModal = document.getElementById('meshDemoModal');
-            document.getElementById('demoMeshModalBtn').addEventListener('click', () => openModal(demoModal));
+const loadMessagesFromApi = async (chatId) => {
+  try {
+    console.log('[Overlay] Loading messages from API for chat:', chatId)
+    const response = await axios.get(`/api/chats/${chatId}/messages`)
+    const messagesData = response.data.data || response.data || []
+    chatStore.setMessages(chatId, messagesData)
+    console.log('[Overlay] Loaded', messagesData.length, 'messages from API')
+    return messagesData
+  } catch (error) {
+    console.error('[Overlay] Failed to load messages from API:', error)
+    return []
+  }
+}
 
-            // Close modals
-            document.addEventListener('click', e => {
-                if (e.target.classList.contains('close-modal')) closeModal(e.target.closest('.modal-overlay'));
-                if (e.target.classList.contains('modal-overlay')) closeModal(e.target);
-            });
-            document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.active').forEach(m => closeModal(m)); });
+const initializeChat = async () => {
+  store.value.overlayLoading = true
+  store.value.overlayError = null
+  
+  try {
+    const targetUser = store.value.overlayTargetUser
+    if (!targetUser?.id) {
+      throw new Error('No target user specified')
+    }
+    
+    console.log('[Overlay] Initializing chat with recipient:', targetUser.id)
+    
+    const context = {
+      context_type: store.value.overlayContextType || 'user_profile',
+      context_id: store.value.overlayContextId || targetUser.id
+    }
+    
+    const chat = await getOrCreateChat(targetUser.id, context)
+    
+    if (!chat) throw new Error('Failed to create or retrieve chat')
+    
+    currentChat.value = chat
+    chatStore.setOverlayChatId(chat.id)
+    
+    if (chat.users) {
+      chat.users.forEach(user => usersMap.value.set(user.id, user))
+    }
+    
+    // Load messages directly from API to ensure persistence
+    await loadMessagesFromApi(chat.id)
+    await markAsRead(chat.id)
+    setupEchoListener(chat.id)
+    
+    await nextTick()
+    scrollToBottom('auto')
+    
+  } catch (error) {
+    console.error('[Overlay] Chat initialization failed:', error)
+    store.value.overlayError = error.message || 'Could not load chat. Please try again.'
+  } finally {
+    store.value.overlayLoading = false
+  }
+}
 
-            // Accessibility
-            const body = document.body;
-            document.getElementById('a11y-large-text').addEventListener('click', () => body.classList.toggle('large-text'));
-            document.getElementById('a11y-high-contrast').addEventListener('click', () => body.classList.toggle('high-contrast'));
-            document.getElementById('a11y-visible-focus').addEventListener('click', () => body.classList.toggle('visible-focus'));
+const setupEchoListener = (chatId) => {
+  if (!window.Echo) {
+    console.warn('[Overlay] Echo not available')
+    return
+  }
+  
+  if (echoChannel.value) {
+    echoChannel.value.stopListening('MessageSent')
+    window.Echo.leave(`chat.${chatId}`)
+  }
+  
+  console.log('[Overlay] Setting up Echo listener for chat:', chatId)
+  
+  echoChannel.value = window.Echo.private(`chat.${chatId}`)
+    .listen('MessageSent', async (event) => {
+      console.log('[Overlay] Real-time message received:', event)
+      
+      const message = event.message || event
+      
+      if (chatId === store.value.overlayChatId) {
+        await markAsRead(chatId)
+        chatStore.addMessage(chatId, message)
+        
+        if (isNearBottom.value) {
+          nextTick(() => scrollToBottom())
+        }
+      }
+    })
+    .error((error) => {
+      console.error('[Overlay] Echo connection error:', error)
+      store.value.overlayError = 'Real-time connection lost. Refresh to reconnect.'
+    })
+}
 
-            // PWA
-            let deferredPrompt;
-            const installBanner = document.getElementById('pwaInstallBanner');
-            window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferredPrompt = e; installBanner.style.display = 'block'; });
-            installBanner.addEventListener('click', async () => { if(deferredPrompt) { deferredPrompt.prompt(); await deferredPrompt.userChoice; installBanner.style.display = 'none'; deferredPrompt = null; } });
-            if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js');
-        })();
-    </script>
-</body>
-</html>
+const markAsRead = async (chatId) => {
+  try {
+    await axios.post(`/api/chats/${chatId}/read`)
+    chatStore.unreadCounts[chatId] = 0
+  } catch (error) {
+    console.error('[Overlay] Failed to mark as read:', error)
+  }
+}
+
+const sendMessage = async () => {
+  if (!newMessage.value.trim() || !store.value.overlayChatId || sending.value) return
+  
+  sending.value = true
+  try {
+    console.log('[Overlay] Sending message:', newMessage.value)
+    
+    const response = await axios.post(`/api/chats/${store.value.overlayChatId}/messages`, {
+      content: newMessage.value,
+      type: 'text'
+    })
+    
+    const message = response.data.data || response.data
+    console.log('[Overlay] Message sent successfully:', message)
+    
+    chatStore.addMessage(store.value.overlayChatId, message)
+    newMessage.value = ''
+    scrollToBottom()
+    
+  } catch (error) {
+    console.error('[Overlay] Send failed:', error)
+    store.value.overlayError = error.response?.data?.message || 'Message failed to send. Try again.'
+  } finally {
+    sending.value = false
+  }
+}
+
+const handleMediaSelected = async (mediaData) => {
+  if (!store.value.overlayChatId) return
+  
+  sending.value = true
+  try {
+    const formData = new FormData()
+    formData.append('file', mediaData.file)
+    formData.append('type', mediaData.type || 'file')
+    formData.append('caption', mediaData.caption || '')
+    
+    const response = await axios.post(`/api/chats/${store.value.overlayChatId}/media`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    })
+    
+    const message = response.data.data || response.data
+    chatStore.addMessage(store.value.overlayChatId, message)
+    scrollToBottom()
+  } catch (error) {
+    console.error('[Overlay] Media upload failed:', error)
+    store.value.overlayError = 'Failed to upload media. Try again.'
+  } finally {
+    sending.value = false
+  }
+}
+
+const openPaymentModal = () => {
+  if (!currentChat.value) return
+  showPaymentModal.value = true
+}
+
+const closePaymentModal = () => {
+  showPaymentModal.value = false
+}
+
+const handlePaymentSent = async (paymentData) => {
+  console.log('[Overlay] Payment sent:', paymentData)
+  
+  if (paymentData.message) {
+    chatStore.addMessage(store.value.overlayChatId, paymentData.message)
+    scrollToBottom()
+  }
+  
+  closePaymentModal()
+}
+
+const openMedia = (mediaData) => {
+  mediaModalUrl.value = mediaData.url || mediaData
+  showMediaModal.value = true
+}
+
+const formatDate = (timestamp) => {
+  const date = new Date(timestamp)
+  const today = new Date()
+  const yesterday = new Date(today)
+  yesterday.setDate(yesterday.getDate() - 1)
+  
+  if (date.toDateString() === today.toDateString()) {
+    return 'Today'
+  } else if (date.toDateString() === yesterday.toDateString()) {
+    return 'Yesterday'
+  } else {
+    return date.toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' })
+  }
+}
+
+const shouldShowDateSeparator = (index) => {
+  if (index === 0) return true
+  const currentDate = new Date(messages.value[index].created_at).toDateString()
+  const prevDate = new Date(messages.value[index - 1].created_at).toDateString()
+  return currentDate !== prevDate
+}
+
+const scrollToBottom = (behavior = 'smooth') => {
+  if (scroller.value) {
+    scroller.value.scrollTo({
+      top: scroller.value.scrollHeight,
+      behavior
+    })
+  }
+}
+
+const handleScroll = () => {
+  if (!scroller.value) return
+  
+  const { scrollTop, scrollHeight, clientHeight } = scroller.value
+  const distanceFromBottom = scrollHeight - scrollTop - clientHeight
+  isNearBottom.value = distanceFromBottom < 100
+}
+
+// ===== Watchers =====
+watch(() => store.value.overlayOpen, async (open) => {
+  if (open && !currentChat.value) {
+    await loadCurrentUser()
+    await initializeChat()
+  }
+})
+
+watch(messages, () => {
+  if (isNearBottom.value) {
+    scrollToBottom()
+  }
+}, { deep: true })
+
+// ===== Lifecycle =====
+onMounted(async () => {
+  document.addEventListener('keydown', handleEscapeKey)
+  await loadCurrentUser()
+  // Only initialize if overlay is already open (should be opened by parent)
+  if (store.value.overlayOpen) {
+    await initializeChat()
+  }
+})
+
+onUnmounted(() => {
+  document.removeEventListener('keydown', handleEscapeKey)
+  
+  if (echoChannel.value) {
+    echoChannel.value.stopListening('MessageSent')
+    if (echoChannel.value.name) {
+      window.Echo.leave(`chat.${echoChannel.value.name}`)
+    }
+  }
+})
+
+const handleEscapeKey = (event) => {
+  if (event.key === 'Escape' && store.value.overlayOpen) {
+    if (showPaymentModal.value) {
+      closePaymentModal()
+    } else if (showMediaModal.value) {
+      showMediaModal.value = false
+    } else {
+      closeChat()
+    }
+  }
+}
+</script>
+
+<style scoped>
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  .fixed.inset-0.items-center {
+    padding: 0;
+  }
+  
+  .max-w-3xl {
+    max-width: 100%;
+    height: 100vh !important;
+    border-radius: 0 !important;
+  }
+  
+  .safe-area-bottom {
+    padding-bottom: max(env(safe-area-inset-bottom), 8px);
+  }
+}
+
+/* Prevent zoom on iOS input focus */
+input, textarea {
+  font-size: 16px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Smooth transitions */
+* {
+  transition: background-color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+}
+</style>
