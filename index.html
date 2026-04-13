@@ -62,7 +62,7 @@
         .close-modal { background: none; border: none; color: #39FF14; font-size: 36px; cursor: pointer; width: 44px; height: 44px; border-radius: 40px; }
         .close-modal:hover { background: #39FF14; color: black; }
         .modal-body { padding: 28px 32px; color: #CCFFCC; }
-        .placeholder-media { width: 100%; max-width: 100%; max-height: 300px; object-fit: contain; border-radius: 20px; margin: 15px 0; border: 1px solid #39FF14; background: #0a1a0a; }
+        .modal-image { width: 100%; max-height: 250px; object-fit: contain; border-radius: 20px; margin: 15px 0; border: 1px solid #39FF14; background: #0a1a0a; display: block; }
         .accessibility-widget { position: fixed; bottom: 24px; right: 24px; display: flex; gap: 12px; background: #000000dd; backdrop-filter: blur(8px); padding: 10px 18px; border-radius: 60px; border: 1px solid #39FF14; z-index: 1100; }
         .accessibility-widget button { background: #001a00; border: 1px solid #39FF14; color: #39FF14; font-size: 20px; width: 48px; height: 48px; border-radius: 48px; cursor: pointer; transition: 0.2s; }
         .accessibility-widget button:hover, .accessibility-widget button.active { background: #39FF14; color: #000000; box-shadow: 0 0 12px #39FF14; }
@@ -458,7 +458,6 @@
                 }
             };
 
-            // Modal definitions with full content
             const modalDefinitions = [
                 { key: 'challenge', icon: 'fa-bullseye', img: '1.png', titleKey: 'challengeTitle', descKey: 'challengeDesc' },
                 { key: 'solution', icon: 'fa-rocket', img: '2.png', titleKey: 'solutionTitle', descKey: 'solutionDesc' },
@@ -494,7 +493,7 @@
                             </div>
                             <div class="modal-body">
                                 <div class="stat-badge"><i class="fas fa-image"></i> ${t.diagramLabel}</div>
-                                <img src="${def.img}" alt="${t[def.titleKey]}" class="placeholder-media" onerror="this.style.display='none'">
+                                <img src="${def.img}" alt="${t[def.titleKey]}" class="modal-image" onerror="this.style.display='none'">
                                 <div>${t[def.descKey] || ''}</div>
                                 <div class="highlight-text" style="margin-top:20px;">
                                     <i class="fas fa-lightbulb"></i> <strong>${t.keyTakeaway}</strong>
