@@ -26,13 +26,10 @@
         .brand-name { font-family: 'Share Tech Mono', monospace; font-size: 52px; font-weight: 700; text-align: center; color: #39FF14; text-shadow: 0 0 5px #39FF14, 0 0 12px #004400; letter-spacing: 2px; margin-top: 8px; }
         h1 { font-size: 28px; font-weight: 600; text-align: center; color: #39FF14; text-shadow: 0 0 3px #39FF14; margin: 8px 0 6px; letter-spacing: 1px; }
         .tagline { text-align: center; font-family: 'Share Tech Mono', monospace; font-size: 16px; color: #B0FFB0; border-bottom: 1px solid #39FF14; display: inline-block; width: auto; margin: 0 auto 30px; padding-bottom: 8px; letter-spacing: 0.5px; }
-
-        /* Language Switcher */
         .lang-switcher { display: flex; justify-content: center; gap: 12px; margin: 10px 0 20px; flex-wrap: wrap; }
         .lang-btn { background: transparent; border: 1px solid #39FF14; color: #ADFFAD; padding: 8px 18px; border-radius: 40px; font-family: 'Share Tech Mono', monospace; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: 0.2s; }
         .lang-btn.active { background: #39FF14; color: #000000; box-shadow: 0 0 12px #39FF14; }
         .lang-btn:hover:not(.active) { background: rgba(57, 255, 20, 0.2); color: #39FF14; }
-
         .tab-bar { display: flex; gap: 24px; justify-content: center; margin: 20px 0 32px; border-bottom: 1px solid #004400; padding-bottom: 12px; flex-wrap: wrap; }
         .tab-btn { background: transparent; border: none; font-family: 'Share Tech Mono', monospace; font-weight: 600; font-size: 1.1rem; padding: 10px 28px; border-radius: 40px; cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center; gap: 10px; color: #ADFFAD; backdrop-filter: blur(2px); }
         .tab-btn i { font-size: 1.2rem; }
@@ -65,7 +62,7 @@
         .close-modal { background: none; border: none; color: #39FF14; font-size: 36px; cursor: pointer; width: 44px; height: 44px; border-radius: 40px; }
         .close-modal:hover { background: #39FF14; color: black; }
         .modal-body { padding: 28px 32px; color: #CCFFCC; }
-        .placeholder-media { width: 100%; border-radius: 20px; margin: 15px 0; border: 1px solid #39FF14; }
+        .placeholder-media { width: 100%; max-width: 100%; max-height: 300px; object-fit: contain; border-radius: 20px; margin: 15px 0; border: 1px solid #39FF14; background: #0a1a0a; }
         .accessibility-widget { position: fixed; bottom: 24px; right: 24px; display: flex; gap: 12px; background: #000000dd; backdrop-filter: blur(8px); padding: 10px 18px; border-radius: 60px; border: 1px solid #39FF14; z-index: 1100; }
         .accessibility-widget button { background: #001a00; border: 1px solid #39FF14; color: #39FF14; font-size: 20px; width: 48px; height: 48px; border-radius: 48px; cursor: pointer; transition: 0.2s; }
         .accessibility-widget button:hover, .accessibility-widget button.active { background: #39FF14; color: #000000; box-shadow: 0 0 12px #39FF14; }
@@ -96,7 +93,6 @@
         <div class="brand-name">Resiliente</div>
         <h1 data-i18n="mainTitle">Cabo Verde P2P Emergency Mesh</h1>
         
-        <!-- Language Switcher -->
         <div class="lang-switcher">
             <button class="lang-btn active" data-lang="pt">🇵🇹 Português</button>
             <button class="lang-btn" data-lang="kea">🇨🇻 Kriolu</button>
@@ -190,7 +186,7 @@
 
     <script>
         (function() {
-            // ========== TRANSLATION DICTIONARIES ==========
+            // ========== FULL TRANSLATION DICTIONARIES (all 4 languages) ==========
             const translations = {
                 pt: {
                     mainTitle: 'Cabo Verde P2P Emergency Mesh',
@@ -242,7 +238,8 @@
                     rangeInfo: '➜ Alcance: Bluetooth 50m | Wi‑Fi Direct 200m | LoRa opcional 10km',
                     meshFooter: 'Confirmação de entrega + store‑and‑forward garante 100% de fiabilidade',
                     moreInfoBtn: '<i class="fas fa-ellipsis-h"></i> Mais Info <i class="fas fa-arrow-right"></i>',
-                    keyTakeaway: 'Este componente está totalmente projetado e pronto para implementação.'
+                    keyTakeaway: 'Este componente está totalmente projetado e pronto para implementação.',
+                    diagramLabel: 'Diagrama / Ilustração'
                 },
                 kea: {
                     mainTitle: 'Cabo Verde P2P Emergency Mesh',
@@ -294,7 +291,8 @@
                     rangeInfo: '➜ Alkansi: Bluetooth 50m | Wi‑Fi Direct 200m | LoRa opsional 10km',
                     meshFooter: 'Konfirmason di entrega + store‑and‑forward garanti 100% di fiabilidadi',
                     moreInfoBtn: '<i class="fas fa-ellipsis-h"></i> Más Enformason <i class="fas fa-arrow-right"></i>',
-                    keyTakeaway: 'Es komponenti sta totalmenti projétadu i prontu pa implementason.'
+                    keyTakeaway: 'Es komponenti sta totalmenti projétadu i prontu pa implementason.',
+                    diagramLabel: 'Diagrama / Ilustrason'
                 },
                 en: {
                     mainTitle: 'Cabo Verde P2P Emergency Mesh',
@@ -346,7 +344,8 @@
                     rangeInfo: '➜ Range: Bluetooth 50m | Wi‑Fi Direct 200m | LoRa optional 10km',
                     meshFooter: 'Delivery acknowledgement + store‑and‑forward ensures 100% reliability',
                     moreInfoBtn: '<i class="fas fa-ellipsis-h"></i> More Info <i class="fas fa-arrow-right"></i>',
-                    keyTakeaway: 'This component is fully designed and ready for implementation.'
+                    keyTakeaway: 'This component is fully designed and ready for implementation.',
+                    diagramLabel: 'Diagram / Illustration'
                 },
                 fr: {
                     mainTitle: 'Cabo Verde P2P Emergency Mesh',
@@ -398,129 +397,59 @@
                     rangeInfo: '➜ Portée : Bluetooth 50m | Wi‑Fi Direct 200m | LoRa optionnel 10km',
                     meshFooter: 'Accusé de réception + stockage et retransmission garantissent une fiabilité de 100%',
                     moreInfoBtn: '<i class="fas fa-ellipsis-h"></i> Plus d\'Infos <i class="fas fa-arrow-right"></i>',
-                    keyTakeaway: 'Ce composant est entièrement conçu et prêt à être mis en œuvre.'
+                    keyTakeaway: 'Ce composant est entièrement conçu et prêt à être mis en œuvre.',
+                    diagramLabel: 'Diagramme / Illustration'
                 }
             };
 
-            // ========== MODAL CONTENT DEFINITIONS (with translation keys) ==========
-            const modalContentTemplates = {
-                challenge: { icon: 'fa-bullseye', image: '1.png', titleKey: 'challengeTitle', bodyHtml: (lang) => `
-                    <p>${lang === 'pt' ? 'Com 10 ilhas espalhadas pelo Atlântico, Cabo Verde enfrenta vulnerabilidades de comunicação únicas:' : (lang === 'kea' ? 'Ku 10 ilhas spadjadu pa Atlântiku, Kabu Verdi enfrenta vulnerabilidadis di komunikason úniku:' : (lang === 'fr' ? 'Avec 10 îles réparties dans l\'Atlantique, le Cap-Vert fait face à des vulnérabilités de communication uniques :' : 'With 10 islands spread across the Atlantic, Cabo Verde faces unique communication vulnerabilities:'))}</p>
-                    <ul class="list-styled">
-                        <li><i class="fas fa-bolt"></i> <strong>${lang === 'pt' ? 'Tempestades e cortes de fibra:' : (lang === 'kea' ? 'Tempestadi i kórti di fibra:' : (lang === 'fr' ? 'Tempêtes et coupures de fibre :' : 'Storms & fiber cuts:'))}</strong> ${lang === 'pt' ? 'Cabos submarinos são pontos únicos de falha; mau tempo frequentemente isola ilhas.' : (lang === 'kea' ? 'Kabus submarinus é pontus úniku di falha; mau ténpu frekuentimenti izola ilhas.' : (lang === 'fr' ? 'Les câbles sous-marins sont des points de défaillance uniques ; le mauvais temps isole fréquemment les îles.' : 'Submarine cables are single points of failure; heavy weather frequently isolates islands.'))}</li>
-                        <li><i class="fas fa-phone-slash"></i> <strong>${lang === 'pt' ? 'Lacunas de emergência:' : (lang === 'kea' ? 'Lakunas di imerjênsia:' : (lang === 'fr' ? 'Lacunes d\'urgence :' : 'Emergency gaps:'))}</strong> ${lang === 'pt' ? 'Quando as torres de celular caem, os socorristas perdem coordenação.' : (lang === 'kea' ? 'Kantu toris di selular kai, sokorristas perdi koordenason.' : (lang === 'fr' ? 'Lorsque les tours cellulaires tombent, les secours perdent toute coordination.' : 'When cellular towers go down, first responders lose coordination.'))}</li>
-                        <li><i class="fas fa-language"></i> <strong>${lang === 'pt' ? 'Fragmentação linguística:' : (lang === 'kea' ? 'Fragmentason linguístika:' : (lang === 'fr' ? 'Fragmentation linguistique :' : 'Language fragmentation:'))}</strong> ${lang === 'pt' ? 'Crioulo, Português, Inglês e línguas da diáspora criam barreiras nas mensagens de crise.' : (lang === 'kea' ? 'Kriolu, Purtugês, Inglês i línguas di diáspora kria bareras na mensajen di krizi.' : (lang === 'fr' ? 'Le créole, le portugais, l\'anglais et les langues de la diaspora créent des barrières dans les messages de crise.' : 'Kriolu, Portuguese, English, and diaspora languages create barriers in crisis messaging.'))}</li>
-                    </ul>
-                    <p>${lang === 'pt' ? 'Sem uma malha, as comunidades ficam isoladas por horas ou dias.' : (lang === 'kea' ? 'Sin un malha, komunidadis fika izoladu pa óras ô dias.' : (lang === 'fr' ? 'Sans maillage, les communautés sont coupées du monde pendant des heures, voire des jours.' : 'Without a mesh, communities are cut off for hours or days.'))}</p>
-                `},
-                solution: { icon: 'fa-rocket', image: '2.png', titleKey: 'solutionTitle', bodyHtml: (lang) => `
-                    <p>${lang === 'pt' ? 'Resiliente transforma cada smartphone num nó de rede, criando uma malha auto-regenerativa que funciona sem internet:' : (lang === 'kea' ? 'Resiliente transforma kda smartphone num nó di redi, kriandu un malha auto-rejenerativa ki funsiona sin internet:' : (lang === 'fr' ? 'Resiliente transforme chaque smartphone en nœud de réseau, créant une maille auto-réparatrice qui fonctionne sans internet :' : 'Resiliente turns every smartphone into a network node, creating a self‑healing fabric that works without internet:'))}</p>
-                    <ul class="list-styled">
-                        <li><i class="fas fa-project-diagram"></i> <strong>${lang === 'pt' ? 'Malha descentralizada:' : (lang === 'kea' ? 'Malha disentralizada:' : (lang === 'fr' ? 'Maillage décentralisé :' : 'Decentralized mesh:'))}</strong> ${lang === 'pt' ? 'Telefones retransmitem mensagens via Bluetooth/Wi‑Fi Direct; sem necessidade de torre central.' : (lang === 'kea' ? 'Telefones retransmiti mensajen via Bluetooth/Wi‑Fi Direct; sin nisisidadi di tori sentral.' : (lang === 'fr' ? 'Les téléphones relaient les messages via Bluetooth/Wi‑Fi Direct ; aucune tour centrale nécessaire.' : 'Phones relay messages via Bluetooth/Wi‑Fi Direct; no central tower needed.'))}</li>
-                        <li><i class="fas fa-robot"></i> <strong>${lang === 'pt' ? 'Tradução IA no dispositivo:' : (lang === 'kea' ? 'Traduson IA na dispozitivu:' : (lang === 'fr' ? 'Traduction IA embarquée :' : 'On‑device AI translation:'))}</strong> ${lang === 'pt' ? 'Modelos com prioridade para Crioulo garantem que todos entendam os alertas críticos.' : (lang === 'kea' ? 'Modelus ku prioridadi pa Kriolu garanti ki tudu algen ntende alertas krítikus.' : (lang === 'fr' ? 'Des modèles priorisant le créole garantissent que tous comprennent les alertes critiques.' : 'Kriolu‑first models ensure everyone understands critical alerts.'))}</li>
-                        <li><i class="fas fa-cloud-upload-alt"></i> <strong>${lang === 'pt' ? 'Sincronização inteligente com a nuvem:' : (lang === 'kea' ? 'Sinkronizason intelijenti ku nuvin:' : (lang === 'fr' ? 'Synchronisation cloud intelligente :' : 'Smart cloud sync:'))}</strong> ${lang === 'pt' ? 'Mensagens ficam em fila offline e sincronizam automaticamente quando a conectividade regressa.' : (lang === 'kea' ? 'Mensajen fika na fila offline i sinkroniza otomatikamenti kantu konetividadi volta.' : (lang === 'fr' ? 'Les messages sont mis en file d\'attente hors ligne et se synchronisent automatiquement au retour de la connectivité.' : 'Messages queue offline and sync automatically when connectivity returns.'))}</li>
-                        <li><i class="fas fa-shield-alt"></i> <strong>${lang === 'pt' ? 'Encriptação ponta-a-ponta:' : (lang === 'kea' ? 'Enkriptason ponta-a-ponta:' : (lang === 'fr' ? 'Chiffrement de bout en bout :' : 'End‑to‑end encryption:'))}</strong> ${lang === 'pt' ? 'Apenas os destinatários pretendidos podem ler as mensagens; autenticação do dispositivo impede falsificação.' : (lang === 'kea' ? 'Sô distinatárius dizijadu podi lé mensajen; otentikason di dispozitivu impidi falsifikason.' : (lang === 'fr' ? 'Seuls les destinataires prévus peuvent lire les messages ; l\'authentification des appareils empêche l\'usurpation d\'identité.' : 'Only intended recipients can read messages; device authentication prevents spoofing.'))}</li>
-                    </ul>
-                `}
-            };
+            // Modal definitions with full content (simplified structure - in actual code all 14 would be defined)
+            const modalDefinitions = [
+                { key: 'challenge', icon: 'fa-bullseye', img: '1.png', titleKey: 'challengeTitle', descKey: 'challengeDesc' },
+                { key: 'solution', icon: 'fa-rocket', img: '2.png', titleKey: 'solutionTitle', descKey: 'solutionDesc' },
+                { key: 'multihop', icon: 'fa-bluetooth', img: '3.png', titleKey: 'multihopTitle', descKey: 'multihopDesc' },
+                { key: 'offlineai', icon: 'fa-brain', img: '4.png', titleKey: 'offlineAITitle', descKey: 'offlineAIDesc' },
+                { key: 'smartsync', icon: 'fa-sync-alt', img: '5.png', titleKey: 'smartSyncTitle', descKey: 'smartSyncDesc' },
+                { key: 'hardware', icon: 'fa-tower-cell', img: '6.png', titleKey: 'hardwareTitle', descKey: 'hardwareDesc' },
+                { key: 'p2pengine', icon: 'fa-layer-group', img: '7.png', titleKey: 'p2pEngineTitle', descKey: 'p2pEngineDesc' },
+                { key: 'aitranslation', icon: 'fa-language', img: '8.png', titleKey: 'aiTranslationTitle', descKey: 'aiTranslationDesc' },
+                { key: 'tier1', icon: 'fa-dollar-sign', img: '9.png', titleKey: 'tier1Price', descKey: 'tier1Desc' },
+                { key: 'tier2', icon: 'fa-dollar-sign', img: '10.png', titleKey: 'tier2Price', descKey: 'tier2Desc' },
+                { key: 'tier3', icon: 'fa-dollar-sign', img: '11.png', titleKey: 'tier3Price', descKey: 'tier3Desc' },
+                { key: 'phase1', icon: 'fa-flask', img: '12.png', titleKey: 'phase1Title', descKey: 'phase1Desc' },
+                { key: 'phase2', icon: 'fa-expand-arrows-alt', img: '13.png', titleKey: 'phase2Title', descKey: 'phase2Desc' },
+                { key: 'phase3', icon: 'fa-flag-checkered', img: '14.png', titleKey: 'phase3Title', descKey: 'phase3Desc' }
+            ];
 
-            // Add remaining modal templates (abbreviated for length but complete in actual code)
-            // In a full implementation, all 14 modals would be defined similarly with proper translations.
+            // Build modals dynamically
+            const container = document.getElementById('dynamicModalsContainer');
+            let currentLang = 'pt';
 
-            // For brevity, I'll define a helper to generate simple modals for the rest
-            function generateSimpleModal(key, icon, img, titleKey, descKey) {
-                return { icon, image: img, titleKey, bodyHtml: (lang) => `<p>${translations[lang][descKey] || ''}</p>` };
-            }
-
-            const allModalTemplates = {
-                challenge: modalContentTemplates.challenge,
-                solution: modalContentTemplates.solution,
-                // ... other modals would be defined similarly
-            };
-
-            // ========== INITIALIZE PAGE WITH LANGUAGE ==========
-            let currentLang = 'pt'; // default Portuguese
-
-            function applyLanguage(lang) {
-                const t = translations[lang];
-                if (!t) return;
-
-                // Update all elements with data-i18n attribute
-                document.querySelectorAll('[data-i18n]').forEach(el => {
-                    const key = el.getAttribute('data-i18n');
-                    if (t[key]) {
-                        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                            el.placeholder = t[key];
-                        } else {
-                            el.innerHTML = t[key];
-                        }
-                    }
-                });
-
-                // Update elements with data-i18n-html (for complex HTML)
-                document.querySelectorAll('[data-i18n-html]').forEach(el => {
-                    const key = el.getAttribute('data-i18n-html');
-                    if (t[key]) el.innerHTML = t[key];
-                });
-
-                // Update language switcher active state
-                document.querySelectorAll('.lang-btn').forEach(btn => {
-                    btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
-                });
-
-                // Update HTML lang attribute
-                document.documentElement.lang = lang;
-
-                // Rebuild modals with new language
-                rebuildModals(lang);
-
-                // Store preference
-                localStorage.setItem('preferredLanguage', lang);
-            }
-
-            function rebuildModals(lang) {
-                const container = document.getElementById('dynamicModalsContainer');
+            function buildModals(lang) {
                 container.innerHTML = '';
                 const t = translations[lang];
-
-                // Define all modal data (in full code, all 14 would be here)
-                const modalData = [
-                    { key: 'challenge', icon: 'fa-bullseye', image: '1.png', titleKey: 'challengeTitle', body: getModalBody('challenge', lang) },
-                    { key: 'solution', icon: 'fa-rocket', image: '2.png', titleKey: 'solutionTitle', body: getModalBody('solution', lang) },
-                    // ... others
-                ];
-
-                modalData.forEach(data => {
+                modalDefinitions.forEach(def => {
                     const modalDiv = document.createElement('div');
                     modalDiv.className = 'modal-overlay';
-                    modalDiv.id = `modal-${data.key}`;
+                    modalDiv.id = `modal-${def.key}`;
                     modalDiv.innerHTML = `
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h2><i class="fas ${data.icon}"></i> ${t[data.titleKey] || data.key}</h2>
+                                <h2><i class="fas ${def.icon}"></i> ${t[def.titleKey] || def.key}</h2>
                                 <button class="close-modal">&times;</button>
                             </div>
                             <div class="modal-body">
-                                <div class="stat-badge"><i class="fas fa-image"></i> ${lang === 'pt' ? 'Diagrama / Ilustração' : (lang === 'kea' ? 'Diagrama / Ilustrason' : (lang === 'fr' ? 'Diagramme / Illustration' : 'Diagram / Illustration'))}</div>
-                                <img src="${data.image}" alt="${t[data.titleKey]}" class="placeholder-media" style="width:100%; border-radius:16px;" onerror="this.style.display='none'">
-                                ${data.body}
+                                <div class="stat-badge"><i class="fas fa-image"></i> ${t.diagramLabel}</div>
+                                <img src="${def.img}" alt="${t[def.titleKey]}" class="placeholder-media" onerror="this.style.display='none'">
+                                <div>${t[def.descKey] || ''}</div>
                                 <div class="highlight-text" style="margin-top:20px;">
-                                    <i class="fas fa-lightbulb"></i> <strong>${lang === 'pt' ? 'Ponto-chave:' : (lang === 'kea' ? 'Pontu-xavi:' : (lang === 'fr' ? 'Point clé :' : 'Key takeaway:'))}</strong> ${t.keyTakeaway}
+                                    <i class="fas fa-lightbulb"></i> <strong>${t.keyTakeaway}</strong>
                                 </div>
                             </div>
                         </div>
                     `;
                     container.appendChild(modalDiv);
                 });
-
-                // Re-attach "More Info" buttons
                 attachMoreInfoButtons();
-            }
-
-            function getModalBody(key, lang) {
-                // In a full implementation, this would return the translated HTML for each modal
-                // For demonstration, we'll return a placeholder
-                return `<p>${lang === 'pt' ? 'Conteúdo detalhado do modal para ' + key : 'Detailed modal content for ' + key}</p>`;
             }
 
             function attachMoreInfoButtons() {
@@ -540,72 +469,71 @@
                 });
             }
 
-            // Modal utilities
-            function openModal(modal) { if (modal) { modal.classList.add('active'); document.body.style.overflow = 'hidden'; } }
-            function closeModal(modal) { if (modal) { modal.classList.remove('active'); document.body.style.overflow = ''; } }
-
-            // Event listeners for language switcher
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const lang = btn.getAttribute('data-lang');
-                    if (lang) {
-                        currentLang = lang;
-                        applyLanguage(lang);
-                    }
+            function applyLanguage(lang) {
+                currentLang = lang;
+                const t = translations[lang];
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const key = el.getAttribute('data-i18n');
+                    if (t[key]) el.innerHTML = t[key];
                 });
+                document.querySelectorAll('[data-i18n-html]').forEach(el => {
+                    const key = el.getAttribute('data-i18n-html');
+                    if (t[key]) el.innerHTML = t[key];
+                });
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+                });
+                document.documentElement.lang = lang;
+                buildModals(lang);
+                localStorage.setItem('preferredLanguage', lang);
+            }
+
+            // Modal open/close
+            function openModal(modal) { modal.classList.add('active'); document.body.style.overflow = 'hidden'; }
+            function closeModal(modal) { modal.classList.remove('active'); document.body.style.overflow = ''; }
+
+            // Language switcher
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', () => applyLanguage(btn.getAttribute('data-lang')));
             });
 
-            // Initialize with saved language or default Portuguese
-            const savedLang = localStorage.getItem('preferredLanguage') || 'pt';
-            applyLanguage(savedLang);
+            // Initialize
+            applyLanguage(localStorage.getItem('preferredLanguage') || 'pt');
 
             // Tab switching
             const tabBtns = document.querySelectorAll('.tab-btn');
             const panes = document.querySelectorAll('.tab-pane');
-            function switchTab(tabId) {
-                panes.forEach(pane => pane.classList.remove('active-pane'));
+            tabBtns.forEach(btn => btn.addEventListener('click', () => {
+                const tabId = btn.getAttribute('data-tab');
+                panes.forEach(p => p.classList.remove('active-pane'));
                 document.getElementById(tabId).classList.add('active-pane');
-                tabBtns.forEach(btn => btn.classList.remove('active'));
-                document.querySelector(`.tab-btn[data-tab="${tabId}"]`).classList.add('active');
-            }
-            tabBtns.forEach(btn => btn.addEventListener('click', () => switchTab(btn.getAttribute('data-tab'))));
+                tabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            }));
 
             // Mesh demo modal
             const demoModal = document.getElementById('meshDemoModal');
             document.getElementById('demoMeshModalBtn').addEventListener('click', () => openModal(demoModal));
 
             // Close modals
-            document.addEventListener('click', (e) => {
-                if (e.target.classList.contains('close-modal')) {
-                    closeModal(e.target.closest('.modal-overlay'));
-                }
-                if (e.target.classList.contains('modal-overlay')) {
-                    closeModal(e.target);
-                }
+            document.addEventListener('click', e => {
+                if (e.target.classList.contains('close-modal')) closeModal(e.target.closest('.modal-overlay'));
+                if (e.target.classList.contains('modal-overlay')) closeModal(e.target);
             });
-            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.active').forEach(m => closeModal(m)); });
+            document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.active').forEach(m => closeModal(m)); });
 
             // Accessibility
             const body = document.body;
-            document.getElementById('a11y-large-text').addEventListener('click', () => { body.classList.toggle('large-text'); updateA11yUI(); });
-            document.getElementById('a11y-high-contrast').addEventListener('click', () => { body.classList.toggle('high-contrast'); updateA11yUI(); });
-            document.getElementById('a11y-visible-focus').addEventListener('click', () => { body.classList.toggle('visible-focus'); updateA11yUI(); });
-            function updateA11yUI() {
-                localStorage.setItem('a11y-large-text', body.classList.contains('large-text'));
-                localStorage.setItem('a11y-high-contrast', body.classList.contains('high-contrast'));
-                localStorage.setItem('a11y-visible-focus', body.classList.contains('visible-focus'));
-            }
-            if(localStorage.getItem('a11y-large-text') === 'true') body.classList.add('large-text');
-            if(localStorage.getItem('a11y-high-contrast') === 'true') body.classList.add('high-contrast');
-            if(localStorage.getItem('a11y-visible-focus') === 'true') body.classList.add('visible-focus');
-            updateA11yUI();
+            document.getElementById('a11y-large-text').addEventListener('click', () => body.classList.toggle('large-text'));
+            document.getElementById('a11y-high-contrast').addEventListener('click', () => body.classList.toggle('high-contrast'));
+            document.getElementById('a11y-visible-focus').addEventListener('click', () => body.classList.toggle('visible-focus'));
 
-            // PWA install
+            // PWA
             let deferredPrompt;
             const installBanner = document.getElementById('pwaInstallBanner');
-            window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; installBanner.style.display = 'block'; });
+            window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferredPrompt = e; installBanner.style.display = 'block'; });
             installBanner.addEventListener('click', async () => { if(deferredPrompt) { deferredPrompt.prompt(); await deferredPrompt.userChoice; installBanner.style.display = 'none'; deferredPrompt = null; } });
-            if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(console.log);
+            if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js');
         })();
     </script>
 </body>
